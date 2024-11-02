@@ -1,0 +1,18 @@
+.site-header {
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 9em;
+
+  &__logo {
+    display: inline-block;
+    min-width: 220px;
+    height: 14px;
+    background-image: url("../assets/images/logo.svg");
+    background-size: auto 14px;
+  }
+
+}
+
+.navbar {
+  min-width: 30%;
+}
