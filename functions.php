@@ -17,6 +17,10 @@ function motaphoto_enqueue_scripts() {
 
 function motaphoto_supports() {
     add_theme_support( 'title-tag' );
+
+    add_theme_support('post-thumbnails');
+    add_image_size('photo-thumbnail', 300,300, array('center', 'center'));
+
 }
 
 add_action( 'init', 'motaphoto_setup');

@@ -4,7 +4,23 @@ get_header();
 /* Start the Loop */
 while ( have_posts() ) :
     the_post();
-    get_template_part( 'template-parts/content/content-page' );
+
+?>
+
+    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+        <header class="entry-header">
+            <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+            <?php has_post_thumbnail() ? the_post_thumbnail() : null; ?>
+        </header>
+
+        <div class="entry-content">
+            <?php the_content(); ?>
+        </div>
+
+    </article>
+
+<?php
 
     // If comments are open or there is at least one comment, load up the comment template.
     if ( comments_open() || get_comments_number() ) {

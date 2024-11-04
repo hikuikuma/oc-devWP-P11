@@ -1,34 +1,43 @@
-* {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
+body {
+  font-family: "Space Mono", serif;
+  font-weight: 400;
   font-style: normal;
-  font-size: 1em;
+  font-size: 16px;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
 }
 
 h1 {
-  font-family: "Space Mono", serif;
   font-size: 6em;
   font-weight: 700;
   font-style: italic;
 }
 
 h2 {
-  font-family: "Space Mono", serif;
   font-size: 4.125em;
-  font-weight: 400;
   font-style: italic;
 }
 
 h3 {
-  font-family: "Space Mono", serif;
   font-size: 1.125em;
-  font-weight: 400;
   font-style: normal;
 }
 
 p {
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-style: normal;
+  font-size: 0.875em;
+}
+
+.tags {
+  font-family: "Space Mono", serif;
+  font-size: 0.875em;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
 }
 
 @media screen and (max-width: 400px) {
@@ -53,6 +62,10 @@ body {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+}
+
+.cta {
+  background-color: #D8D8D8;
 }
 
 .site-header {
@@ -127,7 +140,6 @@ body {
 }
 .contact__modal__form__label {
   text-transform: uppercase;
-  font-size: 0.75em;
 }
 .contact.open {
   visibility: visible;
