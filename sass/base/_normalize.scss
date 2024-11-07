@@ -13,3 +13,9 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
+
+.site-content {
+  position: relative;
+  width: $site-width;
+  margin: 0 $site-side-margin;
+}

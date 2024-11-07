@@ -1,4 +1,4 @@
-body {
+html {
   font-family: $space-mono;
   font-weight: 400;
   font-style: normal;
@@ -6,46 +6,61 @@ body {
 }
 
 h1, h2, h3 {
+  font-weight: 400;
   text-transform: uppercase;
+  margin: 0;
 }
 
 h1 {
-  font-size: 6em;
   font-weight: 700;
   font-style: italic;
+  font-size: 6rem;
 }
 
 h2 {
-  font-size: 4.125em;
+  font-size: 4.125rem;
   font-style: italic;
 }
 
 h3 {
-  font-size: 1.125em;
-  font-style: normal;
+  font-size: 1.125rem;
 }
 
 p {
   font-family: $poppins;
   font-weight: 300;
-  font-style: normal;
-  font-size: 0.875em;
+  font-size: 0.875rem;
 }
 
 .tags {
   font-family: $space-mono;
-  font-size: 0.875em;
   font-weight: 400;
-  font-style: normal;
+  font-size: 0.875rem;
   text-transform: uppercase;
+}
+
+.cta {
+  font-family: $space-mono;
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.form-text {
+  font-family: $poppins;
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: $dark-blue;
+  &__label {
+    text-transform: uppercase;
+  }
 }
 
 @media screen and (max-width: 400px) {
   h1 {
-    font-size: 1.724em;
+    font-size: 1.724rem;
   }
 
   h2 {
-    font-size: 2.875em;
+    font-size: 2.875rem;
   }
 }

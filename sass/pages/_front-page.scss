@@ -1,0 +1,7 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: calc( 100vh - $header-height - var(--wp-admin--admin-bar--height, 0px) );
+}
