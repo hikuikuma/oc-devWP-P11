@@ -14,7 +14,7 @@ while ( have_posts() ) : the_post(); ?>
                 <p class="photo__content__header__tags tags">Référence : <?php the_field('reference'); ?></p>
                 <p class="photo__content__header__tags tags">Catégorie : <?php get_terms_name( $post->ID, 'categorie' ); ?></p>
                 <p class="photo__content__header__tags tags">Format : <?php get_terms_name( $post->ID, 'format' ); ?></p>
-                <p class="photo__content__header__tags tags">Type : <?php the_field('type'); ?></p>
+                <p class="photo__content__header__tags tags">Type : <?php echo get_field('type')['label']; ?></p>
                 <p class="photo__content__header__tags tags">Année : <?php the_date('Y'); ?> </p>
             </header>
             <div class="photo__content__thumbnail">
