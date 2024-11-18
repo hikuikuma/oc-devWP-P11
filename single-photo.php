@@ -4,7 +4,11 @@ get_header();
 <main class="site-content">
 <?php
 /* Start the Loop */
-while ( have_posts() ) : the_post(); ?>
+while ( have_posts() ) {
+the_post();
+$currentPost = $post->ID;
+$categorie = get_term_name( $post->ID, 'categorie' );
+?>
 
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -12,8 +16,8 @@ while ( have_posts() ) : the_post(); ?>
             <header class="photo__content__header">
                 <?php the_title('<h2 class="photo__header__title">', '</h2>'); ?>
                 <p class="photo__content__header__tags tags">Référence : <?php the_field('reference'); ?></p>
-                <p class="photo__content__header__tags tags">Catégorie : <?php get_terms_name( $post->ID, 'categorie' ); ?></p>
-                <p class="photo__content__header__tags tags">Format : <?php get_terms_name( $post->ID, 'format' ); ?></p>
+                <p class="photo__content__header__tags tags">Catégorie : <?php the_term_name( $post->ID, 'categorie' ); ?></p>
+                <p class="photo__content__header__tags tags">Format : <?php the_term_name( $post->ID, 'format' ); ?></p>
                 <p class="photo__content__header__tags tags">Type : <?php echo get_field('type')['label']; ?></p>
                 <p class="photo__content__header__tags tags">Année : <?php the_date('Y'); ?> </p>
             </header>
@@ -31,7 +35,33 @@ while ( have_posts() ) : the_post(); ?>
 
     </article>
 
-<?php endwhile; // End of the loop. ?>
+<?php } // End of the loop.
+    $paging = 2;
+    $photos = new WP_Query([
+        'post_type' => 'photo',
+        'posts_per_page' => $paging,
+        'tax_query' => [
+                [
+                    'taxonomy' => 'categorie',
+                    'field' => 'name',
+                    'terms' => $categorie
+                ],
+        ],
+        'order_by' => 'id',
+        'order' => 'asc',
+        'post__not_in' => [$currentPost]
+    ]); ?>
+    <div class="photos-list">
+        <h3>Vous aimerez aussi</h3>
+        <div class="photos-list__list">
+            <?php if($photos->have_posts()) {
+                while($photos->have_posts()) {
+                    $photos->the_post();
+                    get_template_part('templates_part/photos_list/photo');
+                }
+            } ?>
+        </div>
+    </div>
 </main>
 <?php
 get_footer();

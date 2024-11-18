@@ -13,5 +13,5 @@ $space-mono: "Space Mono", serif;
 $poppins: "Poppins", sans-serif;
 
 $header-height: 80px;
-$site-width: calc(100vw - 18rem);
+$site-width: min(calc(100vw - 18rem), 1400px);
 $site-side-margin: 9rem;

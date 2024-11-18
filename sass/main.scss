@@ -4,13 +4,13 @@
 @import 'base/typography';
 @import 'base/normalize';
 
-@import 'components/buttons';
-
 @import 'layouts/header';
 @import 'layouts/footer';
 @import 'layouts/menus';
 @import 'layouts/modals';
 @import 'layouts/photos-list';
+
+@import 'components/buttons';
 
 @import 'pages/front-page';
 @import 'pages/photo';

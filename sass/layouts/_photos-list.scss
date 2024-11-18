@@ -2,13 +2,22 @@
   &__tools {
     display: flex;
     gap: 2rem;
-    padding-bottom: 40px;
+    margin-top: 5rem;
   }
   &__list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
+    padding: 3.125rem 0;
+  }
+  &__load-more {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    & > .cta {
+      margin-bottom: 3.125rem;
+    }
   }
 }
 

@@ -67,17 +67,6 @@
   &-textarea {
     padding: 8px;
   }
-  &-submit {
-    border-radius: 2px;
-    border: none;
-    line-height: 50px;
-    font-family: $space-mono;
-    background-color: $gray-medium;
-  }
-  &-submit:hover {
-    background-color: $black;
-    color: #FFFFFF;
-  }
 
   &-spinner {
     position: absolute;
