@@ -1,14 +1,20 @@
 .site-header {
-  justify-content: space-between;
+  justify-content: center;
   height: $header-height;
-  padding: 0 9em;
 
-  &__logo {
-    display: inline-block;
-    min-width: 220px;
-    height: 14px;
-    background-image: url("../assets/images/logo.svg");
-    background-size: auto 14px;
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: $site-width;
+    height: 100%;
+    &__logo {
+      display: inline-block;
+      min-width: 220px;
+      height: 14px;
+      background-image: url("../assets/images/logo.svg");
+      background-size: auto 14px;
+    }
   }
 
 }

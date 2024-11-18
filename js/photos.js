@@ -53,6 +53,7 @@
             
             const photoList = $('.photos-list__list')
             const itemMenu = $(this)
+            const dropdownButton = itemMenu.parent().siblings('.dropdown__toggle')
 
             const paging = photoList.attr('data-paging')
             const thisFilter = itemMenu.attr('data-filter')
@@ -68,12 +69,18 @@
                 if( action === 'motaphoto_filter_categories' ) {
                     categorie = ''
                     photoList.attr('data-categorie', categorie)
+                    const value = dropdownButton.attr('data-name')
+                    dropdownButton.html(value)
                 } else if( action === 'motaphoto_filter_formats' ) {
                     format = ''
                     photoList.attr('data-format', format)
+                    const value = dropdownButton.attr('data-name')
+                    dropdownButton.html(value)
                 } else if( action === 'motaphoto_sorter' ) {
                     order = 'id-asc'
                     photoList.attr('data-order', order)
+                    const value = dropdownButton.attr('data-name')
+                    dropdownButton.html(value)
                 }
             }
             // Filter not applied, it will be applied by removing a filter of the same type if it exists
@@ -81,9 +88,13 @@
                 itemMenu.siblings('.selected').removeClass('selected') // Remove other selected item on same menu
                 itemMenu.addClass('selected') // Selected current item
 
+                // Change value of dropdown button
+                const value = itemMenu.html()
+                dropdownButton.html(value)
+
                 // Closing the dropdown
                 itemMenu.parent().removeClass('show')
-                itemMenu.parent().siblings('.dropdown__toggle').removeClass('active')
+                dropdownButton.removeClass('active')
 
                 // Retrieving changing value
                 if( action === 'motaphoto_filter_categories' ) {
@@ -144,7 +155,7 @@
                 }
             })
         })
-        
+
         //********************
         // Dropdowns menus
         //********************

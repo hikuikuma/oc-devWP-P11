@@ -86,11 +86,17 @@ body {
 }
 
 .site-header {
-  justify-content: space-between;
+  justify-content: center;
   height: 80px;
-  padding: 0 9em;
 }
-.site-header__logo {
+.site-header__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(100vw - 18rem, 1400px);
+  height: 100%;
+}
+.site-header__content__logo {
   display: inline-block;
   min-width: 220px;
   height: 14px;
@@ -138,6 +144,7 @@ body {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   visibility: hidden;
+  z-index: 10;
 }
 .modal__contact {
   display: flex;
@@ -147,7 +154,7 @@ body {
   border: 5px solid #000000;
   padding: 1.25em 0;
   background-color: #FFFFFF;
-  visibility: hidden;
+  visibility: collapse;
 }
 .modal__contact__header {
   width: 100%;
@@ -157,6 +164,45 @@ body {
   background-position: top center;
 }
 .modal__contact--selected {
+  visibility: visible;
+}
+.modal__lightbox {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  visibility: collapse;
+}
+.modal__lightbox__closer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.modal__lightbox__closer:after {
+  position: absolute;
+  top: 3.5rem;
+  right: 3.25rem;
+  content: "";
+  width: 22px;
+  height: 22px;
+  background-image: url("../assets/images/icon_close_lightbox.png");
+  cursor: pointer;
+}
+.modal__lightbox__content {
+  position: absolute;
+  left: 0;
+  top: 10rem;
+  width: 100%;
+  height: calc(100% - 10rem);
+  display: flex;
+  justify-content: center;
+}
+.modal__lightbox--selected {
   visibility: visible;
 }
 .modal--open {
@@ -236,6 +282,53 @@ body {
 }
 .wpcf7-response-output {
   margin: 0 !important;
+}
+
+.lightbox__previous, .lightbox__next {
+  height: calc(100% - 10rem);
+  display: flex;
+  align-items: center;
+  padding: 0 3.75rem;
+}
+.lightbox__previous .tags, .lightbox__next .tags {
+  position: relative;
+  color: #FFFFFF;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+.lightbox__previous .tags:hover, .lightbox__next .tags:hover {
+  font-weight: bold;
+}
+.lightbox__previous .tags:before, .lightbox__previous .tags:after, .lightbox__next .tags:before, .lightbox__next .tags:after {
+  content: "";
+  position: absolute;
+  width: 34px;
+}
+.lightbox__previous > .tags:before {
+  left: calc(-34px + 0.5rem);
+}
+.lightbox__next > .tags:after {
+  right: -42px;
+}
+.lightbox__media {
+  position: relative;
+  height: calc(100% - 10rem);
+  background-color: #C4C4C4;
+}
+.lightbox__media__photo {
+  max-height: 100%;
+  aspect-ratio: 16/9;
+}
+.lightbox__media__photo.portrait {
+  aspect-ratio: 9/16;
+}
+.lightbox__media__infos {
+  position: absolute;
+  top: calc(100% + 1rem);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #FFFFFF;
 }
 
 .photos-list__tools {
