@@ -1,0 +1,90 @@
+.cta {
+  border: none;
+  border-radius: 0;
+  padding: 0.5em 1em;
+  min-width: 17rem;
+  min-height: 3.125rem;
+  background-color: $gray-medium;
+  color: $black;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: $black;
+    color: $white ;
+  }
+}
+
+.dropdown {
+  position: relative;
+  width: 260px;
+
+  &__toggle {
+    position: relative;
+    width: 100%;
+    max-height: 42px;
+    padding: .625rem 1.125rem;
+    border: 1px solid $gray-dark;
+    border-radius: 8px;
+    background-color: $white;
+    text-align: left;
+    cursor: pointer;
+
+    &::after{
+      position: absolute;
+      right: .7rem;
+      content: url("../assets/images/dropdown_icon.svg");
+    }
+
+    &.active {
+      outline: 1.3px solid $blue-cta;
+      border-radius: 8px 8px 0 0;
+      &::after{
+        transform: rotate(180deg);
+      }
+    }
+
+  }
+  &__menu {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    visibility: collapse;
+    width: 260px;
+    height: 0;
+    transition: height 0.2s ease;
+    z-index: 100;
+
+    &__item {
+      padding: 0 1.125rem;
+      line-height: 42px;
+      color: inherit;
+      background-color: $white;
+      text-decoration: none;
+
+      &:hover {
+        background-color: $red-tertiary;
+      }
+      &:active {
+        background-color: $red-secondary;
+      }
+      &.selected {
+        background-color: $red-primary;
+        color: white;
+      }
+      &:last-child {
+        border-radius: 0 0 8px 8px;
+      }
+    }
+    &.show {
+      visibility: visible;
+      height: auto;
+    }
+  }
+
+  &-date-sorter {
+    position: absolute;
+    right: 0;
+  }
+}

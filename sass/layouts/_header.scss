@@ -1,6 +1,6 @@
 .site-header {
   justify-content: space-between;
-  height: 80px;
+  height: $header-height;
   padding: 0 9em;
 
   &__logo {

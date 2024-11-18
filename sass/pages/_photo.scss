@@ -1,0 +1,46 @@
+.photo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - $header-height - var(--wp-admin--admin-bar--height, 0px));
+
+  &__content {
+    display: flex;
+    align-self: stretch;
+    width: 100%;
+    height: calc(100% - 120px);
+
+    &__header {
+      width: 50%;
+      border-bottom: 1px solid $black;
+      align-self: flex-end;
+      padding: 2em 0;
+    }
+
+    &__thumbnail {
+      width: 50%;
+      height: 100%;
+      &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  &__tools {
+    display: flex;
+    width: 100%;
+    height: 118px;
+    border-bottom: 1px solid $black;
+    &__cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 50%;
+      &>.cta {
+        width: 50%;
+        padding: 1em;
+      }
+    }
+  }
+}

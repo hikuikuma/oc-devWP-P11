@@ -1,0 +1,67 @@
+<?php
+get_header();
+?>
+<main class="site-content">
+<?php
+/* Start the Loop */
+while ( have_posts() ) {
+the_post();
+$currentPost = $post->ID;
+$categorie = get_term_name( $post->ID, 'categorie' );
+?>
+
+    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+        <div class="photo__content">
+            <header class="photo__content__header">
+                <?php the_title('<h2 class="photo__header__title">', '</h2>'); ?>
+                <p class="photo__content__header__tags tags">Référence : <?php the_field('reference'); ?></p>
+                <p class="photo__content__header__tags tags">Catégorie : <?php the_term_name( $post->ID, 'categorie' ); ?></p>
+                <p class="photo__content__header__tags tags">Format : <?php the_term_name( $post->ID, 'format' ); ?></p>
+                <p class="photo__content__header__tags tags">Type : <?php echo get_field('type')['label']; ?></p>
+                <p class="photo__content__header__tags tags">Année : <?php the_date('Y'); ?> </p>
+            </header>
+            <div class="photo__content__thumbnail">
+                <?php has_post_thumbnail() ? the_post_thumbnail('', ['class' => 'photo__content__thumbnail__image']) : null; ?>
+            </div>
+        </div>
+
+        <div class="photo__tools">
+            <div class="photo__tools__cta">
+                <p>Cette photo vous intéresse?</p>
+                <button class="cta btn-contact" data-photo="<?php the_field('reference'); ?>">Contact</button>
+            </div>
+        </div>
+
+    </article>
+
+<?php } // End of the loop.
+    $paging = 2;
+    $photos = new WP_Query([
+        'post_type' => 'photo',
+        'posts_per_page' => $paging,
+        'tax_query' => [
+                [
+                    'taxonomy' => 'categorie',
+                    'field' => 'name',
+                    'terms' => $categorie
+                ],
+        ],
+        'order_by' => 'id',
+        'order' => 'asc',
+        'post__not_in' => [$currentPost]
+    ]); ?>
+    <div class="photos-list">
+        <h3>Vous aimerez aussi</h3>
+        <div class="photos-list__list">
+            <?php if($photos->have_posts()) {
+                while($photos->have_posts()) {
+                    $photos->the_post();
+                    get_template_part('templates_part/photos_list/photo');
+                }
+            } ?>
+        </div>
+    </div>
+</main>
+<?php
+get_footer();

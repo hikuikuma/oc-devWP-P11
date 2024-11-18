@@ -1,4 +1,4 @@
-.contact {
+.modal {
   display: flex;
   position: fixed;
   top: 0;
@@ -7,10 +7,10 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0,.75);
+  background-color: rgba(0,0,0,.8);
   visibility: hidden;
 
-  &__modal {
+  &__contact {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,6 +18,7 @@
     border: 5px solid $black;
     padding: 1.25em 0;
     background-color: #FFFFFF;
+    visibility: hidden;
 
     &__header {
       width: 100%;
@@ -27,19 +28,16 @@
       background-position: top center;
     }
 
-    &__form {
-      &__label {
-        text-transform: uppercase;
-        font-size: 0.75em;
-      }
+    &--selected {
+      visibility: visible;
     }
   }
 
-  &.open {
+  &--open {
     visibility: visible;
     @include modal-fade(fade-in);
   }
-  &.close {
+  &--close {
     visibility: visible;
     @include modal-fade(fade-out);
   }
@@ -68,17 +66,6 @@
   }
   &-textarea {
     padding: 8px;
-  }
-  &-submit {
-    border-radius: 2px;
-    border: none;
-    line-height: 50px;
-    font-family: $space-mono;
-    background-color: $gray-medium;
-  }
-  &-submit:hover {
-    background-color: $black;
-    color: #FFFFFF;
   }
 
   &-spinner {
