@@ -32,11 +32,26 @@
         // Open lightbox modal on photo list
         $('.listed-photo__infos__fullscreen').on('click', function(e) {
             e.preventDefault()
-            const ref = $(this).attr('data-ref')
-            openLightBox(ref)
+            const photoID = $(this).attr('data-id')
+            openLightBox(photoID, $(this))
         })
-        function openLightBox(ref) {
-            const image = $(`.listed-photo__infos__fullscreen[data-ref=${ref}]`)
+
+        // Change photo on lightbox
+        $('.lightbox__nav').on('click', function(e) {
+            e.preventDefault()
+            const photoID = $(this).attr('data-id')
+            $('.lightbox__media__photo').remove()
+            $('.infos__reference').text('Référence de la photo')
+            $('.infos__categorie').text('Catégorie')
+            openLightBox(photoID, $(this))
+        })
+
+        // Lightbox opener
+        function openLightBox(photoID, eventFrom = null) {
+            if ( eventFrom === null ) {
+                alert(`Erreur dans l'ouverture de la lightbox`)
+            }
+            const image = eventFrom
 
             const ajaxURL = image.attr('href')
             const data = {
@@ -56,13 +71,12 @@
                     'Cache-Control': 'no-cache',
                 },
                 "success": function (response) {
-                    console.log(response.data)
+                    $('.lightbox__media__photo').remove()
                     $('.infos__reference').text(response.data.post.ref)
                     $('.infos__categorie').text(response.data.post.category)
+                    $('#previousLightbox').attr('data-id', response.data.post.previous)
+                    $('#nextLightbox').attr('data-id', response.data.post.next)
                     let classes = "lightbox__media__photo"
-                    if( response.data.post.format == 'Portrait' ) {
-                        classes = "lightbox__media__photo portrait"
-                    }
                     $('.lightbox__media').prepend(`<img class="${classes}" src="${response.data.post.image}">`)
                     openModal('lightbox')
                 },

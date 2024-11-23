@@ -99,9 +99,11 @@ body {
 .site-header__content__logo {
   display: inline-block;
   min-width: 220px;
-  height: 14px;
+  height: 100%;
   background-image: url("../assets/images/logo.svg");
   background-size: auto 14px;
+  background-position: left center;
+  background-repeat: no-repeat;
 }
 
 .navbar {
@@ -117,22 +119,6 @@ body {
   width: 50%;
 }
 
-.menu {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  justify-content: space-evenly;
-}
-.menu-item a {
-  text-transform: uppercase;
-  text-decoration: none;
-  color: inherit;
-}
-.menu-item a:hover {
-  font-weight: 700;
-}
-
 .modal {
   display: flex;
   position: fixed;
@@ -143,7 +129,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
-  visibility: hidden;
+  visibility: collapse;
   z-index: 10;
 }
 .modal__contact {
@@ -295,6 +281,7 @@ body {
   color: #FFFFFF;
   text-transform: capitalize;
   text-decoration: none;
+  line-height: 1rem;
 }
 .lightbox__previous .tags:hover, .lightbox__next .tags:hover {
   font-weight: bold;
@@ -302,25 +289,53 @@ body {
 .lightbox__previous .tags:before, .lightbox__previous .tags:after, .lightbox__next .tags:before, .lightbox__next .tags:after {
   content: "";
   position: absolute;
-  width: 34px;
+  width: 36px;
+  min-height: 1rem;
+  background-repeat: no-repeat;
 }
 .lightbox__previous > .tags:before {
-  left: calc(-34px + 0.5rem);
+  left: calc(-36px - 0.5rem);
+  background-image: url("../assets/images/arrow_left_small.png");
+  background-position: right center;
+}
+.lightbox__previous > .tags:hover:before {
+  background-image: url("../assets/images/arrow_left_medium.png");
 }
 .lightbox__next > .tags:after {
-  right: -42px;
+  right: calc(-36px - 0.5rem);
+  background-image: url("../assets/images/arrow_right_small.png");
+  background-position: left center;
+}
+.lightbox__next > .tags:hover:after {
+  background-image: url("../assets/images/arrow_right_medium.png");
 }
 .lightbox__media {
   position: relative;
-  height: calc(100% - 10rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 20rem);
+  min-width: calc((100vh - 20rem) / 16 * 9);
+  padding: 0;
+  margin: 0;
+}
+.lightbox__media:before {
+  content: "Chargement...";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
   background-color: #C4C4C4;
+  z-index: 10;
 }
 .lightbox__media__photo {
-  max-height: 100%;
-  aspect-ratio: 16/9;
-}
-.lightbox__media__photo.portrait {
-  aspect-ratio: 9/16;
+  height: 100%;
+  z-index: 20;
 }
 .lightbox__media__infos {
   position: absolute;
@@ -497,6 +512,22 @@ body {
 .dropdown-date-sorter {
   position: absolute;
   right: 0;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: space-evenly;
+}
+.menu-item a {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+}
+.menu-item a:hover {
+  font-weight: 700;
 }
 
 .hero {

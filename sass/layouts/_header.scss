@@ -11,9 +11,11 @@
     &__logo {
       display: inline-block;
       min-width: 220px;
-      height: 14px;
+      height: 100%;
       background-image: url("../assets/images/logo.svg");
       background-size: auto 14px;
+      background-position: left center;
+      background-repeat: no-repeat;
     }
   }
 
