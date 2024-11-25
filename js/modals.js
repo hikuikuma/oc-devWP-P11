@@ -50,6 +50,7 @@
         function openLightBox(photoID, eventFrom = null) {
             if ( eventFrom === null ) {
                 alert(`Erreur dans l'ouverture de la lightbox`)
+                console.log(eventFrom)
             }
             const image = eventFrom
 
@@ -91,7 +92,7 @@
             $('.listed-photo__infos__fullscreen').on('click', function(e) {
                 e.preventDefault()
                 const ref = $(this).attr('data-ref')
-                openLightBox(ref)
+                openLightBox(ref, $(this))
             })
         })
         observer.observe(target, {

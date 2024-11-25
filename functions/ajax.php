@@ -234,21 +234,10 @@ function motaphoto_photo_query()
             $values['format'] = get_term_name($photo->ID, 'format');
             $values['ref'] = get_field('reference');
             $values['image'] = get_the_post_thumbnail_url();
-            $previous = get_previous_post();
-            $values['previous'] = ( is_a($previous, 'WP_Post') ) ? $previous->ID : null;
-            $next = get_next_post();
-            $values['next'] = ( is_a($next, 'WP_Post') ) ? $next->ID : null;
+            $values['previous'] = get_previous_photo(get_previous_post(), 'id');
+            $values['next'] = get_next_photo(get_next_post(), 'id');
         } else {
             wp_send_json_error('La requête ne renvoie pas de résultats', 404);
-        }
-
-        // In case an adjacent post is null
-        if( is_null($values['previous']) || is_null($values['next']) ) {
-            $photos = new WP_Query(['post_type' => 'photo', 'posts_per_page' => '1', 'orderby' => 'id', 'order' => 'ASC']);
-            $values['next'] = ( is_null($values['next']) ) ? $photos->posts[0]->ID : $values['next'];
-            $photos = new WP_Query(['post_type' => 'photo', 'posts_per_page' => '1', 'orderby' => 'id', 'order' => 'DESC']);
-            $values['previous'] = ( is_null($values['previous']) ) ? $photos->posts[0]->ID : $values['previous'];
-
         }
 
         $return = [
