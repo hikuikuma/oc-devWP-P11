@@ -1,6 +1,8 @@
-<?php get_header(); ?>
-<main class="site-content">
 <?php
+get_header();
+
+echo '<main class="site-content">';
+
 /* Start the Loop */
 while ( have_posts() ) : the_post(); ?>
 
@@ -47,7 +49,8 @@ while ( have_posts() ) : the_post(); ?>
             'prev_text' => '<p class="meta-nav">' . $twentytwentyone_prev . $twentytwentyone_previous_label . '</p><p class="post-title">%title</p>',
         )
     );
-endwhile; // End of the loop.?>
-</main>
-<?php
+endwhile; // End of the loop.
+
+echo '</main>';
+
 get_footer();

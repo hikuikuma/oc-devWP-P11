@@ -1,8 +1,8 @@
 <?php
 get_header();
-?>
-<main class="site-content">
-<?php
+
+echo '<main class="site-content">';
+
 /* Start the Loop */
 
 $this_post = get_the_ID();
@@ -21,8 +21,8 @@ $categorie = get_term_name( $this_post, 'categorie' );
             <header class="photo__content__header">
                 <?php the_title('<h2 class="photo__header__title">', '</h2>'); ?>
                 <p class="photo__content__header__tags tags">Référence : <?php the_field('reference'); ?></p>
-                <p class="photo__content__header__tags tags">Catégorie : <?php the_term_name( $post->ID, 'categorie' ); ?></p>
-                <p class="photo__content__header__tags tags">Format : <?php the_term_name( $post->ID, 'format' ); ?></p>
+                <p class="photo__content__header__tags tags">Catégorie : <?php the_term_name( $this_post, 'categorie' ); ?></p>
+                <p class="photo__content__header__tags tags">Format : <?php the_term_name( $this_post, 'format' ); ?></p>
                 <p class="photo__content__header__tags tags">Type : <?php echo get_field('type')['label']; ?></p>
                 <p class="photo__content__header__tags tags">Année : <?php the_date('Y'); ?> </p>
             </header>
@@ -66,7 +66,7 @@ $categorie = get_term_name( $this_post, 'categorie' );
         'post__not_in' => [$this_post]
     ]); ?>
     <div class="photos-list">
-        <h3>Vous aimerez aussi</h3>
+        <h3 class="photos-list__title">Vous aimerez aussi</h3>
         <div class="photos-list__list">
             <?php if($photos->have_posts()) {
                 while($photos->have_posts()) {

@@ -3,23 +3,39 @@
   flex-direction: column;
   width: 100%;
   height: calc(100vh - $header-height - var(--wp-admin--admin-bar--height, 0px));
+  @media (max-width: $breakpoint-small) {
+    width: 100vw;
+    height: auto;
+  }
 
   &__content {
     display: flex;
     align-self: stretch;
     width: 100%;
     height: calc(100% - 120px);
+    @media (max-width: $breakpoint-small) {
+      flex-direction: column-reverse;
+    }
 
     &__header {
       width: 50%;
       border-bottom: 1px solid $black;
       align-self: flex-end;
       padding: 2em 0;
+      @media (max-width: $breakpoint-small) {
+        width: 100%;
+        padding: 2em 3.5rem;
+        box-sizing: border-box;
+      }
     }
 
     &__thumbnail {
       width: 50%;
       height: 100%;
+      @media (max-width: $breakpoint-small) {
+        width: calc(100vw - 7rem);
+        margin: 0 3.5rem;
+      }
 
       &__image {
         width: 100%;
@@ -40,10 +56,20 @@
       align-items: center;
       justify-content: space-between;
       width: 50%;
+      @media (max-width: $breakpoint-small) {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 3.5rem;
+        box-sizing: border-box;
+      }
 
       & > .cta {
         width: 50%;
         padding: 1em;
+        @media (max-width: $breakpoint-small) {
+          margin-bottom: 1.5rem;
+        }
       }
     }
 
@@ -56,6 +82,11 @@
       grid-template-areas:
         "image image image image image"
         ". left . right .";
+
+      @media (max-width: $breakpoint-small) {
+        display: none;
+        visibility: collapse;
+      }
     }
   }
 

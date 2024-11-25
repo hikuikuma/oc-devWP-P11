@@ -19,6 +19,10 @@
         $('.menu-item-contact').on('click', function(e) {
             e.preventDefault()
             openModal('contact')
+            if( $('.navbar').hasClass('open') ) {
+                $('.navbar').removeClass('open')
+                $('.burger-menu').removeClass('toggled')
+            }
         })
 
         // Open contact modal on photo details

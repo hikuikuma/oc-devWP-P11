@@ -18,4 +18,13 @@ body {
   position: relative;
   width: $site-width;
   margin: 0 auto;
+  @media (max-width: $breakpoint-small) {
+    margin-top: calc($header-height + 1rem);
+  }
+}
+
+body.home {
+  & .site-content {
+    margin-top: 0;
+  }
 }

@@ -1,3 +1,14 @@
+$breakpoint-small: 400px;
+
+:root {
+  --header-height: 80px;
+  --site-width: min(calc(100vw - 18rem), 1400px);
+  @media (max-width: $breakpoint-small) {
+    --header-height: 72px;
+    --site-width: 100vw;
+  }
+}
+
 $red-primary: #E00000;
 $red-secondary: #FE5858;
 $red-tertiary: #FFD6D6;
@@ -12,6 +23,6 @@ $blue-cta: #215AFF;
 $space-mono: "Space Mono", serif;
 $poppins: "Poppins", sans-serif;
 
-$header-height: 80px;
-$site-width: min(calc(100vw - 18rem), 1400px);
+$header-height: var(--header-height);
+$site-width: var(--site-width);
 $site-side-margin: 9rem;

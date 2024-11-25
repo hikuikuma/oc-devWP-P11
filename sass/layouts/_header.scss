@@ -1,6 +1,14 @@
 .site-header {
   justify-content: center;
   height: $header-height;
+  background-color: $white;
+  box-shadow: 0px 4px 14px 10px rgba(0,0,0,0.03);
+
+  @media (max-width: $breakpoint-small) {
+    position: fixed;
+    top: 0;
+    z-index: 50;
+  }
 
   &__content {
     display: flex;
@@ -8,6 +16,9 @@
     align-items: center;
     width: $site-width;
     height: 100%;
+    @media (max-width: $breakpoint-small) {
+      width: calc(100vw - 80px);
+    }
     &__logo {
       display: inline-block;
       min-width: 220px;
@@ -16,11 +27,87 @@
       background-size: auto 14px;
       background-position: left center;
       background-repeat: no-repeat;
+      @media (max-width: $breakpoint-small) {
+        min-width: 138px;
+        background-size: 100% auto;
+      }
+    }
+    &__menu {
+      display: flex;
+      justify-content: flex-end;
+      min-width: 30%;
+      &__button {
+        width: 1.7rem;
+        height: 1.7rem;
+      }
     }
   }
 
 }
 
+.burger-menu {
+  position: relative;
+  display: block;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  visibility: collapse;
+  @media (max-width: $breakpoint-small) {
+    visibility: visible;
+  }
+
+  & .line {
+    position: absolute;
+    top: calc(50% - 0.055rem);
+    display: block;
+    width: 27px;
+    height: 0.11rem;
+    background-color: $black;
+    transition: all 0.2s ease-in-out;
+
+    &:first-of-type {
+      transform: translate3d(0, -7px, 0);
+    }
+    &:last-of-type {
+      transform: translate3d(0, 7px, 0);
+    }
+  }
+
+  &.toggled {
+    & .line {
+      &:first-of-type {
+        transform: translate3d(0, 0, 0) rotate(40deg);
+      }
+      &:nth-of-type(0n+2) {
+        opacity: 0;
+      }
+      &:last-of-type {
+        transform: translate3d(0, 0, 0) rotate(-40deg);
+      }
+    }
+  }
+}
+
 .navbar {
-  min-width: 30%;
+  width: 100%;
+  @media (max-width: $breakpoint-small) {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - $header-height);
+    background-color: $red-primary;
+    color: $white;
+    visibility: collapse;
+    z-index: 200;
+    & > .menu {
+      height: 100%;
+      font-size: 44px;
+    }
+    &.open {
+      visibility: visible;
+    }
+  }
 }

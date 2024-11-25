@@ -6,8 +6,18 @@
   height: calc( 100vh - $header-height - var(--wp-admin--admin-bar--height, 0px) );
   background-size: cover;
   background-position: center center;
+
+  @media (max-width: $breakpoint-small) {
+    height: 100%;
+    aspect-ratio: 16/9;
+    margin-top: $header-height;
+  }
+
   & > h1 {
     -webkit-text-stroke: 3px white;
     color: transparent;
+    @media (max-width: $breakpoint-small) {
+      -webkit-text-stroke: 1px white;
+    }
   }
 }
