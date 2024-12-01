@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   height: calc(100vh - $header-height - var(--wp-admin--admin-bar--height, 0px));
-  @media (max-width: $breakpoint-small) {
+  @media (max-width: $breakpoint-large) {
     width: 100vw;
     height: auto;
   }
@@ -13,7 +13,7 @@
     align-self: stretch;
     width: 100%;
     height: calc(100% - 120px);
-    @media (max-width: $breakpoint-small) {
+    @media (max-width: $breakpoint-large) {
       flex-direction: column-reverse;
     }
 
@@ -22,7 +22,7 @@
       border-bottom: 1px solid $black;
       align-self: flex-end;
       padding: 2em 0;
-      @media (max-width: $breakpoint-small) {
+      @media (max-width: $breakpoint-large) {
         width: 100%;
         padding: 2em 3.5rem;
         box-sizing: border-box;
@@ -32,7 +32,7 @@
     &__thumbnail {
       width: 50%;
       height: 100%;
-      @media (max-width: $breakpoint-small) {
+      @media (max-width: $breakpoint-large) {
         width: calc(100vw - 7rem);
         margin: 0 3.5rem;
       }
@@ -56,7 +56,7 @@
       align-items: center;
       justify-content: space-between;
       width: 50%;
-      @media (max-width: $breakpoint-small) {
+      @media (max-width: $breakpoint-large) {
         width: 100%;
         flex-direction: column;
         align-items: flex-start;
@@ -67,7 +67,9 @@
       & > .cta {
         width: 50%;
         padding: 1em;
-        @media (max-width: $breakpoint-small) {
+        @media (max-width: $breakpoint-large) {
+          min-width: 0px;
+          width: 100%;
           margin-bottom: 1.5rem;
         }
       }
@@ -83,7 +85,7 @@
         "image image image image image"
         ". left . right .";
 
-      @media (max-width: $breakpoint-small) {
+      @media (max-width: $breakpoint-large) {
         display: none;
         visibility: collapse;
       }

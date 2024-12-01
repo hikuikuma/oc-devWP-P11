@@ -18,13 +18,15 @@ body {
   position: relative;
   width: $site-width;
   margin: 0 auto;
-  @media (max-width: $breakpoint-small) {
-    margin-top: calc($header-height + 1rem);
+  @media (max-width: $breakpoint-medium) {
+    margin-top: $header-height;
   }
 }
 
-body.home {
-  & .site-content {
-    margin-top: 0;
+@media (max-width: $breakpoint-medium) {
+  body.home {
+    .site-content {
+      margin-top: 0;
+    }
   }
 }

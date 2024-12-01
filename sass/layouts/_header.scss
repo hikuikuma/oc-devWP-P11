@@ -4,9 +4,10 @@
   background-color: $white;
   box-shadow: 0px 4px 14px 10px rgba(0,0,0,0.03);
 
-  @media (max-width: $breakpoint-small) {
+  @media (max-width: $breakpoint-medium) {
     position: fixed;
     top: 0;
+    left: 0;
     z-index: 50;
   }
 
@@ -16,7 +17,7 @@
     align-items: center;
     width: $site-width;
     height: 100%;
-    @media (max-width: $breakpoint-small) {
+    @media (max-width: $breakpoint-medium) {
       width: calc(100vw - 80px);
     }
     &__logo {
@@ -27,7 +28,7 @@
       background-size: auto 14px;
       background-position: left center;
       background-repeat: no-repeat;
-      @media (max-width: $breakpoint-small) {
+      @media (max-width: $breakpoint-medium) {
         min-width: 138px;
         background-size: 100% auto;
       }
@@ -36,6 +37,9 @@
       display: flex;
       justify-content: flex-end;
       min-width: 30%;
+      @media (max-width: $breakpoint-large) {
+        min-width: 50%;
+      }
       &__button {
         width: 1.7rem;
         height: 1.7rem;
@@ -47,14 +51,15 @@
 
 .burger-menu {
   position: relative;
-  display: block;
+  display: none;
   background-color: transparent;
   border: 0;
   margin: 0;
   padding: 0;
   cursor: pointer;
   visibility: collapse;
-  @media (max-width: $breakpoint-small) {
+  @media (max-width: $breakpoint-medium) {
+    display: block;
     visibility: visible;
   }
 
@@ -92,12 +97,11 @@
 
 .navbar {
   width: 100%;
-  @media (max-width: $breakpoint-small) {
+  @media (max-width: $breakpoint-medium) {
     position: fixed;
     top: $header-height;
     left: 0;
-    width: 100vw;
-    height: calc(100vh - $header-height);
+    height: calc(100% - $header-height);
     background-color: $red-primary;
     color: $white;
     visibility: collapse;

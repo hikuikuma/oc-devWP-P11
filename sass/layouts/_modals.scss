@@ -3,8 +3,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, .8);
@@ -20,6 +20,9 @@
     padding: 1.25em 0;
     background-color: #FFFFFF;
     visibility: collapse;
+    @media (max-width: $breakpoint-medium) {
+      width: 100%;
+    }
 
     &__header {
       width: 100%;
@@ -60,28 +63,40 @@
         width: 22px;
         height: 22px;
         background-image: url("../assets/images/icon_close_lightbox.png");
+        background-size: 100%;
         cursor: pointer;
+        @media (max-width: $breakpoint-large) {
+          top: 1rem;
+          right: 1rem;
+          width: 1rem;
+          height: 1rem;
+        }
       }
     }
 
     &__content {
       position: absolute;
       top: 10rem;
+      max-width: 100vw;
       height: calc(100% - 17.5rem);
-      margin: 0 auto 7.5rem;
+      margin: 0;
       display: grid;
       grid-template-columns: 13rem 1fr 13rem;
       grid-template-rows: 1fr 1.5rem;
       grid-template-areas:
         "prev media next"
         ". infos .";
-      @media (max-width: $breakpoint-small) {
+      @media (max-width: $breakpoint-large) {
+        top: 3rem;
+        height: calc(100% - 3rem);
+        width: 100vw;
         grid-template-columns: 50% 50%;
-        grid-template-rows: 1.5rem 1fr 1.5rem;
+        grid-template-rows: 1.5rem 1fr 1.5rem .25fr;
         grid-template-areas:
           "prev next"
           "media media"
-          "infos infos";
+          "infos infos"
+          ". .";
       }
     }
 
@@ -171,6 +186,9 @@
 
   &__previous {
     grid-area: prev;
+    @media (max-width: $breakpoint-large) {
+      justify-content: flex-start;
+    }
   }
 
   &__previous > .tags:before {
@@ -186,6 +204,9 @@
 
   &__next {
     grid-area: next;
+    @media (max-width: $breakpoint-large) {
+      justify-content: flex-end;
+    }
   }
 
   &__next > .tags:after {
@@ -208,9 +229,9 @@
     min-width: calc(calc(100vh - 20rem) / 16 * 9);
     padding: 0;
     margin: 0;
-    @media (max-width: $breakpoint-small) {
-      min-width: 0;
-      max-width: calc(calc(100vh - 20rem) / 16 * 9);
+    @media (max-width: $breakpoint-large) {
+      height: calc(100vh - 6rem);
+      max-height: calc(100vw / 9 * 21);
     }
 
     &:before {
@@ -226,17 +247,19 @@
       color: $white;
       background-color: $gray-dark;
       z-index: 10;
-      @media (max-width: $breakpoint-small) {
-        height: auto;
+      @media (max-width: $breakpoint-large) {
+        background-color: transparent;
       }
     }
 
     &__photo {
       height: 100%;
       z-index: 20;
-      @media (max-width: $breakpoint-small) {
-        width: 100%;
+      object-fit: contain;
+      @media (max-width: $breakpoint-large) {
         height: auto;
+        width: 100%;
+        max-height: 100%;
       }
     }
   }
@@ -247,5 +270,9 @@
     display: flex;
     justify-content: space-between;
     color: $white;
+    @media (max-width: $breakpoint-large) {
+      width: calc(100% - 2rem);
+      margin: 0 1rem;
+    }
   }
 }

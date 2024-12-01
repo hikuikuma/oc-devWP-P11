@@ -1,11 +1,13 @@
-$breakpoint-small: 400px;
+$breakpoint-small: 450px;
+$breakpoint-medium: 1020px;
+$breakpoint-large: 1400px;
 
 :root {
   --header-height: 80px;
-  --site-width: min(calc(100vw - 18rem), 1400px);
-  @media (max-width: $breakpoint-small) {
+  --site-width: min(100%, 1400px);
+  @media (max-width: $breakpoint-large) {
     --header-height: 72px;
-    --site-width: 100vw;
+    --site-width: 100%;
   }
 }
 
@@ -25,4 +27,3 @@ $poppins: "Poppins", sans-serif;
 
 $header-height: var(--header-height);
 $site-width: var(--site-width);
-$site-side-margin: 9rem;

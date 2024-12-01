@@ -1,11 +1,11 @@
 .photos-list {
   display: flex;
   flex-direction: column;
-  @media (max-width: $breakpoint-small) {
-    align-items: center;
-  }
   &__title {
     margin-top: 5rem;
+    @media (max-width: $breakpoint-large) {
+      padding: 0 2rem;
+    }
   }
   &__tools {
     display: flex;
