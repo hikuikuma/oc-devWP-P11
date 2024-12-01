@@ -297,12 +297,20 @@ body.home .site-content {
 }
 .modal__lightbox__content {
   position: absolute;
-  left: 0;
   top: 10rem;
-  width: 100%;
-  height: calc(100% - 10rem);
-  display: flex;
-  justify-content: center;
+  height: calc(100% - 17.5rem);
+  margin: 0 auto 7.5rem;
+  display: grid;
+  grid-template-columns: 13rem 1fr 13rem;
+  grid-template-rows: 1fr 1.5rem;
+  grid-template-areas: "prev media next" ". infos .";
+}
+@media (max-width: 400px) {
+  .modal__lightbox__content {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1.5rem 1fr 1.5rem;
+    grid-template-areas: "prev next" "media media" "infos infos";
+  }
 }
 .modal__lightbox--selected {
   display: flex;
@@ -388,7 +396,7 @@ body.home .site-content {
 }
 
 .lightbox__previous, .lightbox__next {
-  height: calc(100% - 10rem);
+  height: 100%;
   display: flex;
   align-items: center;
   padding: 0 3.75rem;
@@ -410,6 +418,9 @@ body.home .site-content {
   min-height: 1rem;
   background-repeat: no-repeat;
 }
+.lightbox__previous {
+  grid-area: prev;
+}
 .lightbox__previous > .tags:before {
   left: calc(-36px - 0.5rem);
   background-image: url("../assets/images/arrow_left_small.png");
@@ -417,6 +428,9 @@ body.home .site-content {
 }
 .lightbox__previous > .tags:hover:before {
   background-image: url("../assets/images/arrow_left_medium.png");
+}
+.lightbox__next {
+  grid-area: next;
 }
 .lightbox__next > .tags:after {
   right: calc(-36px - 0.5rem);
@@ -427,6 +441,7 @@ body.home .site-content {
   background-image: url("../assets/images/arrow_right_medium.png");
 }
 .lightbox__media {
+  grid-area: media;
   position: relative;
   display: flex;
   align-items: center;
@@ -435,6 +450,12 @@ body.home .site-content {
   min-width: calc((100vh - 20rem) / 16 * 9);
   padding: 0;
   margin: 0;
+}
+@media (max-width: 400px) {
+  .lightbox__media {
+    min-width: 0;
+    max-width: calc((100vh - 20rem) / 16 * 9);
+  }
 }
 .lightbox__media:before {
   content: "Chargement...";
@@ -450,13 +471,23 @@ body.home .site-content {
   background-color: #C4C4C4;
   z-index: 10;
 }
+@media (max-width: 400px) {
+  .lightbox__media:before {
+    height: auto;
+  }
+}
 .lightbox__media__photo {
   height: 100%;
   z-index: 20;
 }
-.lightbox__media__infos {
-  position: absolute;
-  top: calc(100% + 1rem);
+@media (max-width: 400px) {
+  .lightbox__media__photo {
+    width: 100%;
+    height: auto;
+  }
+}
+.lightbox__infos {
+  grid-area: infos;
   width: 100%;
   display: flex;
   justify-content: space-between;

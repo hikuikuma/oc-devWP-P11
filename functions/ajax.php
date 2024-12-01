@@ -1,18 +1,9 @@
 <?php
-function test_nonce($waiting, $nonce = null)
-{
-    if (
-        $nonce === null ||
-        !wp_verify_nonce($_REQUEST['nonce'], $waiting)
-    ) {
-        wp_send_json_error("Vous n’avez pas l’autorisation d’effectuer cette action.", 403);
-    } else {
-        return true;
-    }
+function test_nonce($waiting, $nonce = null) {
+    return (!$nonce === null || !wp_verify_nonce($_REQUEST['nonce'], $waiting)) ? wp_send_json_error("Vous n’avez pas l’autorisation d’effectuer cette action.", 403) : true;
 }
 
-function ajaxQuery($values, $more = false)
-{
+function ajaxQuery($values, $more = false) {
 
     // Preparing the query
     $args = [
@@ -21,30 +12,13 @@ function ajaxQuery($values, $more = false)
     ];
 
     // Loading sort method
-    $order = orderQuery($values['order']);
-    $args['order_by'] = $order['orderby'];
-    $args['order'] = $order['order'];
-
+    $args = array_merge($args, orderQuery($values['order']));
     // Checking if the format filter is set
-    if ($values['format'] != '') {
-        $args['tax_query'][] = [
-            'taxonomy' => 'format',
-            'field' => 'slug',
-            'terms' => $values['format']
-        ];
-    }
+    if ($values['format'] !== '') $args['tax_query'][] = filterQuery($values['format'], 'format');
     // Checking if the category filter is set
-    if ($values['categorie'] != '') {
-        $args['tax_query'][] = [
-            'taxonomy' => 'categorie',
-            'field' => 'slug',
-            'terms' => $values['categorie']
-        ];
-    }
+    if ($values['categorie'] !== '') $args['tax_query'][] = filterQuery($values['categorie'], 'categorie');
     // Added AND relationship if both filters exist
-    if ($values['format'] != '' and $values['categorie'] != '') {
-        $args['tax_query']['relation'] = 'AND';
-    }
+    if ($values['format'] !== '' && $values['categorie'] !== '') $args['tax_query']['relation'] = 'AND';
 
     // Retrieving the total number of photos with these filters
     $values['total'] = totalQuery($args);
@@ -53,9 +27,7 @@ function ajaxQuery($values, $more = false)
     $args['posts_per_page'] = $values['paging'];
 
     // If it's to display more photos, we skip the photos already loaded
-    if ($more) {
-        $args['offset'] = $values['loaded'];
-    }
+    if ($more) $args['offset'] = $values['loaded'];
 
     // Execute the query
     $ajaxposts = new WP_Query($args);
@@ -75,14 +47,13 @@ function ajaxQuery($values, $more = false)
     wp_reset_postdata();
 
     // Updated the number of photos loaded in a "load more" process
-    if ($more) {
-        $values['loaded'] = $values['loaded'] + $values['paging'];
-    }
+    if ($more) $values['loaded'] = $values['loaded'] + $values['paging'];
 
     // Returning information as a JSON array
     $return = [
         'values' => $values,
         'posts' => $posts,
+        'args' => $args,
     ];
     wp_send_json_success($return);
 }
@@ -96,6 +67,8 @@ function totalQuery($args)
     } else {
         $nb_posts = 0;
     }
+
+    wp_reset_postdata();
 
     return $nb_posts;
 }
@@ -113,6 +86,14 @@ function orderQuery($order)
         default:
             return ['orderby' => 'id', 'order' => 'ASC'];
     }
+}
+
+function filterQuery($terms, $taxonomy) {
+    return [
+        'taxonomy' => $taxonomy,
+        'field' => 'slug',
+        'terms' => $terms
+    ];
 }
 
 function motaphoto_load_more()
@@ -136,8 +117,8 @@ function motaphoto_load_more()
     exit;
 }
 
-add_action('wp_ajax_motaphoto_load_more', 'motaphoto_load_more');
-add_action('wp_ajax_nopriv_motaphoto_load_more', 'motaphoto_load_more');
+if (is_user_logged_in() ) add_action('wp_ajax_motaphoto_load_more', 'motaphoto_load_more');
+else add_action('wp_ajax_nopriv_motaphoto_load_more', 'motaphoto_load_more');
 
 function motaphoto_filter_categories()
 {
@@ -159,8 +140,8 @@ function motaphoto_filter_categories()
     exit;
 }
 
-add_action('wp_ajax_motaphoto_filter_categories', 'motaphoto_filter_categories');
-add_action('wp_ajax_nopriv_motaphoto_filter_categories', 'motaphoto_filter_categories');
+if (is_user_logged_in() ) add_action('wp_ajax_motaphoto_filter_categories', 'motaphoto_filter_categories');
+else add_action('wp_ajax_nopriv_motaphoto_filter_categories', 'motaphoto_filter_categories');
 
 function motaphoto_filter_formats()
 {
@@ -182,8 +163,8 @@ function motaphoto_filter_formats()
     exit;
 }
 
-add_action('wp_ajax_motaphoto_filter_formats', 'motaphoto_filter_formats');
-add_action('wp_ajax_nopriv_motaphoto_filter_formats', 'motaphoto_filter_formats');
+if (is_user_logged_in() ) add_action('wp_ajax_motaphoto_filter_formats', 'motaphoto_filter_formats');
+else add_action('wp_ajax_nopriv_motaphoto_filter_formats', 'motaphoto_filter_formats');
 
 function motaphoto_sorter()
 {
@@ -204,8 +185,8 @@ function motaphoto_sorter()
     exit;
 }
 
-add_action('wp_ajax_motaphoto_sorter', 'motaphoto_sorter');
-add_action('wp_ajax_nopriv_motaphoto_sorter', 'motaphoto_sorter');
+if (is_user_logged_in() ) add_action('wp_ajax_motaphoto_sorter', 'motaphoto_sorter');
+else add_action('wp_ajax_nopriv_motaphoto_sorter', 'motaphoto_sorter');
 
 // Querry a single photo (lightbox)
 function motaphoto_photo_query()
@@ -214,40 +195,58 @@ function motaphoto_photo_query()
         if (!isset($_POST['id'])) {
             wp_send_json_error('Les références de la photo n\'ont pas été fournies', 400);
         }
-        $id = absint($_POST['id']);
+        $values = [
+            'format' => sanitize_text_field($_POST['format']),
+            'categorie' => sanitize_text_field($_POST['categorie']),
+            'order' => sanitize_text_field($_POST['order']),
+            'id' => absint($_POST['id']),
+        ];
 
         // Preparing the query
         $args = [
             'post_type' => 'photo',
-            'p' => $id
+            'p' => $values['id']
         ];
+
+        // Loading sort method
+        $args = array_merge($args, orderQuery($values['order']));
+        // Checking if the format filter is set
+        if ($values['format'] !== '') $args['tax_query'][] = filterQuery($values['format'], 'format');
+        // Checking if the category filter is set
+        if ($values['categorie'] !== '') $args['tax_query'][] = filterQuery($values['categorie'], 'categorie');
+        // Added AND relationship if both filters exist
+        if ($values['format'] !== '' and $values['categorie'] !== '') $args['tax_query']['relation'] = 'AND';
 
         // Execute the query
         $photo = new WP_Query($args);
 
+        $results = [];
+        $noTerm = null;
+
         // Loading posts
-        $values = [];
         if ($photo->have_posts()) {
             $photo->the_post();
-            $values['id'] = get_the_ID();
-            $values['category'] = get_term_name($photo->ID, 'categorie');
-            $values['format'] = get_term_name($photo->ID, 'format');
-            $values['ref'] = get_field('reference');
-            $values['image'] = get_the_post_thumbnail_url();
-            $values['previous'] = get_previous_photo(get_previous_post(), 'id');
-            $values['next'] = get_next_photo(get_next_post(), 'id');
+            $results['id'] = get_the_ID();
+            $results['category'] = get_term_name($photo->ID, 'categorie');
+            $results['format'] = get_term_name($photo->ID, 'format');
+            $results['ref'] = get_field('reference');
+            $results['image'] = get_the_post_thumbnail_url();
+            $results['previous'] = get_previous_photo($args, 'id');
+            $results['next'] = get_next_photo($args, 'id');
+            $results['args'] = $args;
         } else {
             wp_send_json_error('La requête ne renvoie pas de résultats', 404);
         }
+        wp_reset_postdata();
 
         $return = [
-            'post' => $values
+            'post' => $results
         ];
 
         wp_send_json_success($return);
     }
-    exit();
+    exit;
 }
 
-add_action('wp_ajax_motaphoto_photo_query', 'motaphoto_photo_query');
-add_action('wp_ajax_nopriv_motaphoto_photo_query', 'motaphoto_photo_query');
+if (is_user_logged_in() ) add_action('wp_ajax_motaphoto_photo_query', 'motaphoto_photo_query');
+else add_action('wp_ajax_nopriv_motaphoto_photo_query', 'motaphoto_photo_query');

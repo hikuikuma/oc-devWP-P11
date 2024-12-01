@@ -1,18 +1,19 @@
 <?php
-get_header();
-
-echo '<main class="site-content">';
-
+    get_header();
+?>
+    <main class="site-content">
+<?php
 /* Start the Loop */
 
 $this_post = get_the_ID();
 
-if (!have_posts()) {wp_die('The query with ID '.$this_post.' returns no results', 404);}
+if (!have_posts()) {wp_die('The query returns no results', 404);}
 while ( have_posts() ) {
-the_post();
-$prev_post = get_previous_photo(get_previous_post(), 'post', 'date');
-$next_post = get_next_photo(get_next_post(), 'post', 'date');
-$categorie = get_term_name( $this_post, 'categorie' );
+    the_post();
+    $args = ['post_type' => 'photo', 'p' => get_the_ID()];
+    $prev_post = get_previous_photo($args, 'post');
+    $next_post = get_next_photo($args, 'post');
+    $categorie = get_term_name( $this_post, 'categorie' );
 ?>
 
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

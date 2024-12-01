@@ -57,6 +57,8 @@
                 console.log(eventFrom)
             }
             const image = eventFrom
+            const list = $('.photos-list__list')
+            openModal('lightbox')
 
             const ajaxURL = image.attr('href')
             const data = {
@@ -64,6 +66,10 @@
                 nonce:  image.attr('data-nonce'),
                 ref: image.attr('data-ref'),
                 id: image.attr('data-id'),
+                paging: list.attr('data-paging'),
+                categorie: list.attr('data-categorie'),
+                format: list.attr('data-format'),
+                order: list.attr('data-order'),
             }
 
             $.ajax({
@@ -83,7 +89,6 @@
                     $('#nextLightbox').attr('data-id', response.data.post.next)
                     let classes = "lightbox__media__photo"
                     $('.lightbox__media').prepend(`<img class="${classes}" src="${response.data.post.image}">`)
-                    openModal('lightbox')
                 },
                 "error": function (xhr, status, error) {
                     console.log(xhr.responseText)

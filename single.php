@@ -1,7 +1,8 @@
 <?php
-get_header();
-
-echo '<main class="site-content">';
+    get_header();
+?>
+<main class="site-content">
+<?php
 
 /* Start the Loop */
 while ( have_posts() ) : the_post(); ?>

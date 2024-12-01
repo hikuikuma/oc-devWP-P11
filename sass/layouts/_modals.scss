@@ -7,7 +7,7 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0,.8);
+  background-color: rgba(0, 0, 0, .8);
   visibility: collapse;
   z-index: 100;
 
@@ -47,9 +47,11 @@
 
     &__closer {
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+
       &:after {
         position: absolute;
         top: 3.5rem;
@@ -61,14 +63,26 @@
         cursor: pointer;
       }
     }
+
     &__content {
       position: absolute;
-      left: 0;
       top: 10rem;
-      width: 100%;
-      height: calc(100% - 10rem);
-      display: flex;
-      justify-content: center;
+      height: calc(100% - 17.5rem);
+      margin: 0 auto 7.5rem;
+      display: grid;
+      grid-template-columns: 13rem 1fr 13rem;
+      grid-template-rows: 1fr 1.5rem;
+      grid-template-areas:
+        "prev media next"
+        ". infos .";
+      @media (max-width: $breakpoint-small) {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 1.5rem 1fr 1.5rem;
+        grid-template-areas:
+          "prev next"
+          "media media"
+          "infos infos";
+      }
     }
 
     &--selected {
@@ -81,6 +95,7 @@
     visibility: visible;
     @include modal-fade(fade-in);
   }
+
   &--close {
     visibility: visible;
     @include modal-fade(fade-out);
@@ -105,9 +120,10 @@
     }
   }
 
-  &-text,&-email{
+  &-text, &-email {
     line-height: 40px;
   }
+
   &-textarea {
     padding: 8px;
   }
@@ -127,7 +143,7 @@
 .lightbox {
 
   &__previous, &__next {
-    height: calc(100% - 10rem);
+    height: 100%;
     display: flex;
     align-items: center;
     padding: 0 3.75rem;
@@ -138,9 +154,11 @@
       text-transform: capitalize;
       text-decoration: none;
       line-height: 1rem;
+
       &:hover {
         font-weight: bold;
       }
+
       &:before, &:after {
         content: "";
         position: absolute;
@@ -151,14 +169,23 @@
     }
   }
 
+  &__previous {
+    grid-area: prev;
+  }
+
   &__previous > .tags:before {
     left: calc(-36px - 0.5rem);
     background-image: url("../assets/images/arrow_left_small.png");
     background-position: right center;
 
   }
+
   &__previous > .tags:hover:before {
     background-image: url("../assets/images/arrow_left_medium.png");
+  }
+
+  &__next {
+    grid-area: next;
   }
 
   &__next > .tags:after {
@@ -166,19 +193,25 @@
     background-image: url("../assets/images/arrow_right_small.png");
     background-position: left center;
   }
+
   &__next > .tags:hover:after {
     background-image: url("../assets/images/arrow_right_medium.png");
   }
 
   &__media {
+    grid-area: media;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     height: calc(100vh - 20rem);
-    min-width: calc( calc(100vh - 20rem) / 16 * 9 );
+    min-width: calc(calc(100vh - 20rem) / 16 * 9);
     padding: 0;
     margin: 0;
+    @media (max-width: $breakpoint-small) {
+      min-width: 0;
+      max-width: calc(calc(100vh - 20rem) / 16 * 9);
+    }
 
     &:before {
       content: "Chargement...";
@@ -193,20 +226,26 @@
       color: $white;
       background-color: $gray-dark;
       z-index: 10;
+      @media (max-width: $breakpoint-small) {
+        height: auto;
+      }
     }
 
     &__photo {
       height: 100%;
       z-index: 20;
+      @media (max-width: $breakpoint-small) {
+        width: 100%;
+        height: auto;
+      }
     }
+  }
 
-    &__infos {
-      position: absolute;
-      top: calc(100% + 1rem);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      color: $white;
-    }
+  &__infos {
+    grid-area: infos;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: $white;
   }
 }

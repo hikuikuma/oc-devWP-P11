@@ -15,10 +15,11 @@
             ?>
         </div>
         <div class="lightbox__media">
-            <div class="lightbox__media__infos">
-                <span class="infos__reference tags">Référence de la photo</span>
-                <span class="infos__categorie tags">Catégorie</span>
-            </div>
+
+        </div>
+        <div class="lightbox__infos">
+            <span class="infos__reference tags">Référence de la photo</span>
+            <span class="infos__categorie tags">Catégorie</span>
         </div>
         <div class="lightbox__next">
             <?php

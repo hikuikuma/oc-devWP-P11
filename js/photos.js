@@ -121,6 +121,8 @@
                 paging: paging
             }
 
+            photoList.html('Chargement ...')
+
             $.ajax({
                 "type": 'POST',
                 "url": ajaxURL,
